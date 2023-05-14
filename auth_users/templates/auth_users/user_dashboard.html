@@ -1,0 +1,52 @@
+{% extends 'base.html' %}  
+{%load static%}
+
+{%block title%}User Dashboard{%endblock%}
+  
+{% block content %}  
+
+<head>
+
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/home.css' %}">
+   
+</head>
+
+{% comment %} <a href="{% url 'books:view_book'%}">All books</a>
+<a href="{% url 'auth_users:profile'%}">Profile</a>
+<a href="{% url 'auth_users:view_user'%}">All Users</a> {% endcomment %}
+<div class="col-md-6 offset-col-4 mx-auto">
+		<h2>{{user.username}}<span class="danger"></span class="danger"></h2>
+    <main style="height: 100vh;">
+        <div class="insights">
+            {% comment %} <div class="sales">
+                <a href="{% url 'auth_users:view_user' %}" class="active">
+                    <span class="material-symbols-sharp">person_add</span>
+                    <h3>User</h3>
+                </a>
+            </div> {% endcomment %}
+            <!----------------------------------end of user------------------>
+            <div class="income">
+                <a href="{% url 'auth_users:change_password' %}">
+                    <span class="material-symbols-sharp">key</span>
+                    <h3>change_password</h3>
+                </a>
+            </div>
+            <!--------------------------add person------------------>
+            {% comment %} <div class="income">
+                <a href="{% url 'books:view_book' %}">
+                    <span class="material-symbols-sharp">menu_book</span>
+                    <h3>view book</h3>
+                </a>
+            </div> {% endcomment %}
+            <!----------------------------add book------------------>
+            <div class="income">
+                <a href="{% url 'auth_users:profile' %}">
+                    <span class="material-symbols-sharp">person</span>
+                    <h3>Add profile</h3>
+                </a>
+            </div>
+        </div> 
+    </main>
+</div>
+
+{%endblock%}

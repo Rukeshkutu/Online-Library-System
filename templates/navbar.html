@@ -1,0 +1,88 @@
+{% load static %}
+<header>
+  <link rel="stylesheet" type = "text/css" href="{% static 'css/main.css' %}">
+</header>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'books:digital_books' %}">Library</a>
+
+     
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
+                <li class="nav-item">
+                <a class="nav-link waves-effect" aria-current="page" href="{% url 'books:digital_books' %}">Home</a>
+              </li>
+              {%if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link waves-effect" aria-current="page" href="{% url 'books:recomm' %}">Recommendation</a>
+              </li>
+
+              
+              {%endif%}
+              {% if request.user.is_authenticated %}
+              <li class = "nav-item">
+                <!-- <a class="nav-link waves-effect" aria-current="page" href = "{% url 'books:recommend' %}" >Similarity Recommend</a> -->
+              </li>
+              {% endif %}
+              {% comment %} <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Library
+                </a>
+
+                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'store:items'%}">All</a></li>
+                    {% for c in categories %}
+                    <li {% if category.slug == c.slug %}class="selected" {% endif %}>
+                        <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul> 
+
+              </li> {% endcomment %}
+
+            </ul>
+
+            <form method = "GET" action = "/search"class="d-flex" >
+              <input class="form-control me-2" name = "query" id= "query" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+              
+            
+                {% if request.user.is_authenticated%}
+                <div class = "nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Account
+                  </a>
+                
+                  <ul class = "dropdown-menu" aria-labelledby = "navbarDropdown">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'auth_users:dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'auth_users:profile' %}">Profile</a>
+                    </li>
+
+                  <!-- For Logout -->
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'auth_users:signout_page' %}">Logout</a>
+                    </li>
+                  </ul> 
+                </div>
+
+                {%else%}
+                <!-- For Login -->
+                  <a class="nav-link" href="{% url 'auth_users:signin_page'%}">Login</a>
+                {% endif %}
+          </div>
+
+        </div>
+      </nav>
+      
+</header>

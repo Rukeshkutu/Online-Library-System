@@ -1,0 +1,71 @@
+{% extends 'base.html' %}  
+{%load static%}
+
+{%block title%}Admin Dashboard{%endblock%}
+  
+{% block content %}  
+
+<head>
+			
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+		<div class="col-md-6 offset-col-4 mx-auto">
+					<div class="top">
+						<div class="logo">
+							{% if request.user.is_superuser %}
+								<h2>{{user.username}}<span class="danger"></span class="danger">(Admin)</h2>
+							{%endif%}
+						</div>
+					</div>
+			<main style="height: 100vh;">	
+			 <div class="insights">
+				<div class="sales">
+					<a href="{% url 'auth_users:staff_dashboard' %}">
+						<span class="material-symbols-sharp">grid_view</span>
+						<h3>Dashboard</h3>
+					</a>
+				</div>
+				<div class="sales">
+					<a href="{% url 'auth_users:view_user' %}" class="active">
+						<span class="material-symbols-sharp">person_add</span>
+						<h3>User</h3>
+					</a>
+				</div>
+				<!----------------------------------end of user------------------>
+				<div class="expensis">
+					<a href="{% url 'books:add_book' %}">
+						<span class="material-symbols-sharp">menu_book</span>
+						<h3>Add Book</h3>
+					</a>
+				</div>
+				<!------------------------------End of book------------------>
+				<div class="income">
+					<a href="{%url 'auth_users:change_password'%}">
+						<span class="material-symbols-sharp">key</span>
+						<h3>Change Password</h3>
+					</a>
+				</div>
+				<!--------------------------add person------------------>
+				<div class="income">
+					<a href="{% url 'books:view_book' %}">
+						<span class="material-symbols-sharp">menu_book</span>
+						<h3>view book</h3>
+					</a>
+				</div>
+				<!----------------------------add book------------------>
+				<div class="income">
+					<a href="{% url 'auth_users:profile' %}">
+						<span class="material-symbols-sharp">person</span>
+						<h3>Add profile</h3>
+					</a>
+				</div>
+			</div> 
+		</main>
+		 </div>
+ </div>
+
+
+
+
+
+{%endblock%}
