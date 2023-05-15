@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+	{% block content %}
+
+	<div class="col-md-6 offset-md-3">
+		{% comment %} {% include 'auth_users/dashboard_sidebar.html'%} {% endcomment %}
+		<form method="POST" action="#" enctype="multipart/form-data" > 
+			{% csrf_token %}
+			{{ form|crispy}}
+			
+			<input type="submit" value="Submit"  class="btn btn-primary"/>
+		</form>
+		<br>
+		<br>
+	</div>
+	{% endblock content %}

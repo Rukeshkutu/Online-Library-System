@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{%load static%}
+<head>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/home.css' %}">
+  </head>
+{% block title%}Home{%endblock%}
+
+{%block content%}
+
+
+<br>
+<div class="text-center">
+  <!-- <a href = "{% url 'books:recommendation'  %}" > Pearson Correlation Recommend</a>  -->
+  <!-- <a href = "{% url 'books:recommend' %}" > Cosine Similarity Recommend</a>  -->
+</div>
+<br>
+<!-- <div class="alphaFilter">
+  {% for i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'|make_list %}
+
+    <a href="{% url 'books:filter' i %}" >{{ i }}</a>
+ {% endfor %}
+
+</div> -->
+<br>
+<h3 class="text-center"><span>All  </span>Books</h3>
+  <div style="display: flex; margin-top: -130px;">
+    {%include './card.html'%}
+  </div>
+
+
+
+{%endblock%} 

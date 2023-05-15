@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{book.title}}
+{% endblock title %}
+
+{% block content %}
+<br>
+<br>
+<div class='col-md-8 offset-md-2'>
+    <div class='small-container single-product'>
+        <div class="product-row row">
+            <div class="column-2 col-md-4">
+
+                <img src="{{book.image.url}}" class="large-image" alt="" width='100%' />
+                <h2 class =" text-xl">Review</h2>
+                 {% if request.user.is_authenticated %}
+                    <form method = "POST" action = "." class = "form-group mt-6 mb-6 p-6 bg-grey-100 rounded-xl ">
+                        {% csrf_token %}
+                        <div>
+                            <label>Rating</label>
+                            <select name = "rating">
+                                <option value ="1">1</option>
+                                <option value ="2">2</option>
+                                <option value ="3" selected>3</option>
+                                <option value ="4">4</option>
+                                <option value ="5">5</option>
+                            </select>
+                        </div>
+
+                        <div >
+                            <label>Comment</label>
+                            <textarea name = "content" class="form-control"></textarea>
+                        </div>
+                        <br>
+
+                        <div>
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                {%endif%}
+            </div>
+            <br>
+
+            <div class="column-2 col-md-8">
+                <h1>{{book.title}}</h1>
+                <h4>Author:{{book.author}}</h4>
+                <h4>Publication:{{book.publisher}}</h4>
+                <h4>Edition:{{book.published_year}}</h4>
+
+                {% if book.get_rating > 0 %}
+                    <h4>Rating: {{book.get_rating }} of 5</h4>
+                {%endif%}
+
+                <h4>Description:{{book.description}}</h4>
+                <h4></h4>
+                {% if request.user.is_authenticated %}
+                <a href ="{{book.book_pdf.url}}" class = "btn btn-success">
+                    Read PDF
+                </a> 
+                {% else %}
+                <a href ="{% url 'auth_users:signin_page'%}" class = "btn btn-success">
+                    Read PDF
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+  
+</div>
+
+<br>
+<br>
+<br>
+
+<div class = "col-md-8 offset-md-2">
+    <!-- <h2 class =" text-xl">Review</h2>
+    {% if request.user.is_authenticated %}
+    <form method = "POST" action = "." class = "form-group mt-6 mb-6 p-6 bg-grey-100 rounded-xl ">
+        {% csrf_token %}
+        <div>
+            <label>Rating</label>
+            <select name = "rating">
+                <option value ="1">1</option>
+                <option value ="2">2</option>
+                <option value ="3" selected>3</option>
+                <option value ="4">4</option>
+                <option value ="5">5</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Comment</label>
+            <textarea name = "content"></textarea>
+        </div>
+
+        <div>
+            <button>Submit</button>
+        </div>
+
+    </form>
+    {%endif%} -->
+
+          {% for review in book.reviews.all %}        
+    <div class = "px-4 py-6 bg-grey rounded-xl mb-4">
+        <strong>Username:</strong>{{review.created_by}}<br>
+        <strong>Rating:</strong>{{ review.rating }} of 5<br>
+        <strong>Date:</strong>{{review.created_at | date:"Y-m-d" }}<br>
+        <strong>Comment:</strong>{{review.content}}<br>
+    </div>
+    {%endfor%} 
+</div>
+
+{% endblock content%}
+

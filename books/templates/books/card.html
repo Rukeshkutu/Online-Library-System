@@ -1,0 +1,27 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" type = "text/css" href="{% static 'css/card.css' %}">
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+             {%for b in book %}
+                <div class="card">
+                <a class='card-link' href="{{b.get_absolute_url}}">
+                    <img src="{{b.image.url}}">
+                    <div class="details">
+                        <h3>{{b.title}}</h3>
+                        <h3>Author::{{b.author}}</h3>
+                          {% if b.get_rating > 0 %}
+                            <h3>Rating: {{b.get_rating }} of 5</h3>
+                          {%endif%}
+                    </div>
+                </a>
+                </div>
+             {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

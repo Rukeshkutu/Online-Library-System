@@ -1,0 +1,61 @@
+{% extends "base.html"%}
+
+{%load static %}
+{% block title%}Search Result{%endblock%}
+
+{%block content%}
+<main>
+    <div class="album bg-light">
+      <div class="container">
+  
+        <h3>Search Results: {{queries}}</h3>
+
+        {% if book|length < 1 %}
+          <p>No Search result found.<br>
+            your search: <b>{{queries}}</b> did not match any document<br>
+            Suggestions:<br>
+            <ul>
+                <li>Try different keywords.</li>
+                <li>Make sure that all words are spel correctly</li>
+                <li>Try more greneral keywords.</li>
+                <li>Try fewer keywords</li>
+            </ul>
+          </p>
+        {% endif %}
+        <div style="margin-top:-130px">
+          {%include './card.html'%}
+        </div>
+      </div>
+    </div>
+  
+  
+  </main>
+
+  <!--page number-->
+  {% comment %} <nav aria-label="...">
+    <ul class="pagination ">
+      {% if page_obj.has_previous %}
+      <li class="page-item ">
+        <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1">Previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item"><a class="page-link" href="">Page: {{ page_obj.number }}</a></li>
+      
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <!-- <a class="page-link" href="?page={{ page_obj.paginator.num_page }}">Last &raquo;</a> -->
+      </li>
+      {%endif%}
+    </ul>
+  </nav> {% endcomment %}
+
+  <ul>
+    {% for book in recommended_books %}
+      <li>{{ book.title }} by {{ book.author }}</li>
+    {% endfor %}
+  </ul>
+
+
+{%endblock%} 
