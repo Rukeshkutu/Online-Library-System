@@ -19,4 +19,28 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("This email address is already in use.")
         return email
-    
+
+
+   
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']
+        
+class ProfileWithoutImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'city', 'zone', 'contact_no', 'tole']
+        widgets= {
+            'bio': forms.Textarea(attrs={'class':'form-control'}),
+            'city': forms.TextInput(attrs={'class':'form-control'}),
+            'zone': forms.TextInput(attrs={'class':'form-control'}),
+            'contact_no': forms.TextInput(attrs={'class':'form-control'}),
+            'tole': forms.TextInput(attrs={'class':'form-control'}),
+        }

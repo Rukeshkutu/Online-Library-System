@@ -120,3 +120,54 @@ def password_reset_request(request):
         'password_reset_form': password_reset_form,
     }
     return render(request, "auth_users/password_reset.html", context)
+
+@login_required(login_url='auth_users:signin')
+def profile(request):
+    user_profile = Profile.objects.all()
+    context = {
+        'user_profile':user_profile,
+    }
+    
+    return render(request, 'auth_users/profile.html', context)
+
+
+def edit_profile_image(request):
+    if request.method == 'POST':
+        form = ProfileImageForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your profile image has been updated!')
+            return redirect('auth_users:profile')
+    else:
+        form = ProfileImageForm(instance=request.user.profile)
+        
+    return render(request, 'auth_users/edit_profile_image.html', {'form': form})
+
+def edit_profile_detail(request):
+    if request.method == 'POST':
+        form = ProfileWithoutImageForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your profile image has been updated!')
+            return redirect('auth_users:profile')
+    else:
+        form = ProfileWithoutImageForm(instance=request.user.profile)
+        
+    return render(request, 'auth_users/edit_profile.html', {'form': form})
+
+
+
+def view_user(request):
+    # if request.user.is_active and request.user.is_staff:
+    users = Profile.objects.all()
+
+    context = {
+        'users': users,
+    }
+    return render(request, "auth_users/view_user.html", context)
+
+
+def delete_User(request, id):
+    users = Profile.objects.filter(id=id)
+    users.delete()
+    return redirect("auth_users:view_user")
