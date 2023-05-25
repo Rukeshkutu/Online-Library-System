@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+
+{%block title%}Profile Page{%endblock%}
+
+{%block content%}
+<div class="col-md-6 offset-md-3" style="height: 100vh;"> 
+  <h2 style="text-align: center;">Profile</h2>
+  <div class = "container">
+    <div class="Profile">
+      <img src="{{ user.profile.avatar.url }}" alt="Profile Image"><br>
+      <a href="{%url 'auth_users:edit_profile_image'%}"><button class="btn btn-primary">Edit Profile</button></a>
+
+    </div>
+    <div>
+      <p><strong>Username:</strong> {{user.username }}</p>
+      <p><strong>Name:</strong> {{user.first_name }} {{user.last_name}}</p>
+      <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+      <!-- <p><strong>Location:</strong> {{user.profile.city}}</p> -->
+      <p><strong>Phone Number:</strong> {{user.profile.contact_no}}</p>
+      <p><strong>Zone:</strong> {{user.profile.zone}}</p>
+      <p><strong>Tole:</strong> {{user.profile.tole}}</p>
+
+      <a href="{%url 'auth_users:edit_profile_detail'%}"><button class="btn btn-success" >Edit Profile Detail</button></a>
+      
+    </div>
+  </div>
+</div>
+{%endblock content%}

@@ -27,6 +27,8 @@ urlpatterns = [
     path('book-detail/<slug:slug>/', views.book_detail, name = 'book_detail'),
     path('delete-book/<str:pk>/', views.delete_book, name = 'delete_book'),
     
+    path('recommendation/', views.recommend, name = 'recomm'),
+    
     path('search/', views.search, name = 'search'),
     # path( ' ', include('books.urls', namespace='books')),
 ]

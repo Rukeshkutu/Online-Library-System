@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} All User List {% endblock %}
+{% comment %} {% block css %} {% endcomment %}
+{% comment %} {% endblock %} {% endcomment %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center"><u>Users List</u></h1>
+    <table class="table table-hover" id="example">
+        <thead>
+            <tr class="text-center">
+                <th>Sr.No</th>
+                <th>ID</th>
+                <th>Profile pic</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Tole</th>
+                <th>City</th>
+                <th>Zone</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr class="text-center">
+                <td>{{forloop.counter}}.</td>
+                <td>{{u.user.id}}</td>
+                <td><img class="img-fluid" alt="Responsive image" src="{{ u.image.url}}"></td>
+                <td>{{u.user.username}}</td>
+                <td>{{u.user.get_full_name}}</td>
+                <td>{{u.user.email}}</td>
+                <td>{{u.contact_no}}</td>
+                <td>{{u.tole}}</td>
+                <td>{{u.city}}</td>
+                <td>{{u.zone}}</td>
+                <td><a href="{% url 'auth_users:delete_user' u.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+ </div>
+ <br>
+ <br>
+{% endblock content%}
